@@ -5,14 +5,17 @@ package squire4s
   *
   * Assume depends on some column type C and produces a W out
   */
-trait WhereAlg[C, W] {
-  def eq[T](lhs: C, rhs: T)(implicit ev: Embed[T, W]): W
-  def equiv(lhs: C, rhs: C): W
-  def and(x: W, y: W): W
-  def or(x: W, y: W): W
-  def paren(x: W): W
+trait WhereAlg[ColT, Where] {
+  def eq[T](lhs: Col[ColT], rhs: T)(implicit ev: Embed[T, Where]): Where
+  def equiv(lhs: Col[ColT], rhs: Col[ColT]): Where
+  def and(x: Where, y: Where): Where
+  def or(x: Where, y: Where): Where
+  def paren(x: Where): Where
 }
 
 object WhereAlg {
-  def apply[C, W](implicit instance: WhereAlg[C, W]): WhereAlg[C, W] = instance
+  def apply[Col, Where](
+      implicit instance: WhereAlg[Col, Where]
+  ): WhereAlg[Col, Where] =
+    instance
 }
