@@ -1,9 +1,7 @@
-import Dependencies._
-
 ThisBuild / scalaVersion := "2.13.2"
 ThisBuild / version := "0.1.0-SNAPSHOT"
-ThisBuild / organization := "com.example"
-ThisBuild / organizationName := "example"
+ThisBuild / organization := "com.github.rzeigler"
+ThisBuild / organizationName := "rzeigler"
 
 ThisBuild / scalacOptions += "-Xlog-implicits"
 
@@ -21,7 +19,8 @@ lazy val root = (project in file("."))
 lazy val core = (project in file("core"))
   .settings(
     libraryDependencies += "org.typelevel" %% "cats-core" % "2.1.1",
-    libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.3"
+    libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.3",
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.1.1" % "test"
   )
 
 lazy val doobie = (project in file("doobie"))
