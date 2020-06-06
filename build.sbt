@@ -5,6 +5,8 @@ ThisBuild / version := "0.1.0-SNAPSHOT"
 ThisBuild / organization := "com.example"
 ThisBuild / organizationName := "example"
 
+ThisBuild / scalacOptions += "-Xlog-implicits"
+
 val compilerPlugins = Seq(
   compilerPlugin("org.typelevel" %% "kind-projector" % "0.10.3"),
   compilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
@@ -18,7 +20,8 @@ lazy val root = (project in file("."))
 
 lazy val core = (project in file("core"))
   .settings(
-    libraryDependencies += "org.typelevel" %% "cats-core" % "2.1.1"
+    libraryDependencies += "org.typelevel" %% "cats-core" % "2.1.1",
+    libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.3"
   )
 
 lazy val doobie = (project in file("doobie"))

@@ -6,20 +6,7 @@ import squire4s.SelectQueryAlg
 import squire4s.Query
 
 trait QueryInterpreter {
-  private final case class QueryBuilder(
-      project: String,
-      from: String,
-      where: Option[String]
-  ) extends Query[String, String, String, String] {
-    def render: String =
-      s"SELECT $project FROM $from" + where.fold("")(w => show" WHERE $w")
-
-    def where(where: String): Query[String, String, String, String] =
-      this.copy(where = where.some)
-  }
-
   implicit object QueryString extends QueryAlg[String, String, String, String] {
-
     override def select(
         project: String
     ): SelectQueryAlg[String, String, String, String] =
@@ -31,4 +18,16 @@ trait QueryInterpreter {
       }
 
   }
+}
+
+private[string] final case class QueryBuilder(
+    project: String,
+    from: String,
+    where: Option[String]
+) extends Query[String, String, String, String] {
+  def render: String =
+    s"SELECT $project FROM $from" + where.fold("")(w => show" WHERE $w")
+
+  def where(where: String): Query[String, String, String, String] =
+    this.copy(where = where.some)
 }
